@@ -4,6 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ru.aapodomatko.fooddelivery.R
 import ru.aapodomatko.fooddelivery.databinding.ActivityMainBinding
 import ru.aapodomatko.fooddelivery.fragments.fragmentcart.CartFragment
@@ -13,40 +19,28 @@ import ru.aapodomatko.fooddelivery.fragments.fragmentprofile.ProfileFragment
 import ru.aapodomatko.fooddelivery.fragments.fragmentsearh.SearchFragment
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
+    private  var _binding: ActivityMainBinding? = null
+    private val mBinding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_splash)
 
-        changeFragment(HomeFragment())
 
-        binding.bottomNavMenu.setOnItemSelectedListener {
-            when ( it.itemId ) {
-                R.id.menu_home -> {
-                    changeFragment(HomeFragment())
-                }
-                R.id.menu_cart -> {
-                    changeFragment(CartFragment())
-                }
-                R.id.menu_search -> {
-                    changeFragment(SearchFragment())
-                }
-                R.id.menu_history -> {
-                    changeFragment(HistoryFragment())
-                }
-                R.id.menu_user -> {
-                    changeFragment(ProfileFragment())
-                }
-            }
-            return@setOnItemSelectedListener true
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000)
+            _binding = ActivityMainBinding.inflate(layoutInflater)
+            setContentView(mBinding.root)
+            mBinding.bottomNavMenu.setupWithNavController(
+                navController = findNavController(R.id.fragment_container)
+            )
         }
+
     }
 
-    private fun changeFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        fragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
+
+
 }

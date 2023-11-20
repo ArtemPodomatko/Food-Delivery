@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.fragmenthome.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="hello home fragment" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/image_slider"
+        android:layout_width="wrap_content"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_popular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/popular"
+        app:layout_constraintTop_toBottomOf="@id/image_slider"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="36dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/yeonsung"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/go_menu"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="@string/view_menu"
+        android:textSize="12sp"
+        android:fontFamily="@font/lato"
+        android:elevation="10dp"
+        android:shadowColor="@color/end_green_color"
+        android:outlineAmbientShadowColor="@color/end_green_color"
+        android:outlineSpotShadowColor="@color/end_green_color"
+        android:padding="8dp"
+        android:textColor="@color/start_green_color"
+        android:background="@drawable/textview_background"
+        app:layout_constraintTop_toTopOf="@id/tv_popular"
+        app:layout_constraintBottom_toBottomOf="@id/tv_popular"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="18dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/go_menu"
+        tools:listitem="@layout/home_food_item" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

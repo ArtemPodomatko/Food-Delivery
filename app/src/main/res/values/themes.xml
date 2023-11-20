@@ -3,7 +3,16 @@
     <style name="Base.Theme.FoodDelivery" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/light_action_bar_color</item>
+        <item name="android:actionMenuTextColor">@color/dark_action_button_text_color</item>
+        <item name="android:actionMenuTextAppearance">@style/DarkActionButtonStyle</item>
+        <item name="colorPrimaryDark">@color/light_status_bar_color</item>
     </style>
 
     <style name="Theme.FoodDelivery" parent="Base.Theme.FoodDelivery" />
+
+    <style name="DarkActionButtonStyle" parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textColor">@color/dark_action_button_text_color</item>
+    </style>
+
 </resources>

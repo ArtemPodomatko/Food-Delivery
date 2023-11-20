@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.loginactivity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/im_startScreen_logo"
+        android:layout_width="91dp"
+        android:layout_height="92dp"
+        app:srcCompat="@drawable/logo"
+        android:layout_marginTop="83dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/startScreen_splash_title"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/im_startScreen_logo"
+        android:text="@string/waves_of_food"
+        android:textSize="40sp"
+        android:fontFamily="@font/yeonsung" />
+
+    <TextView
+        android:id="@+id/deliver_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deliver_favorite_food"
+        android:layout_marginTop="11dp"
+        android:textSize="14sp"
+        android:fontFamily="@font/lato"
+        android:textColor="@color/start_green_color"
+        app:layout_constraintTop_toBottomOf="@id/startScreen_splash_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/login_to_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_to_your_account"
+        android:layout_marginTop="26dp"
+        android:textSize="20sp"
+        android:fontFamily="@font/lato"
+        android:textColor="@color/start_green_color"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/deliver_favorite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    
+    <EditText
+        android:id="@+id/ed_email"
+        android:layout_width="325dp"
+        android:layout_height="57dp"
+        android:background="@drawable/ed_text_style"
+        android:hint="@string/email_or_phone_number"
+        android:textSize="14sp"
+        android:fontFamily="@font/lato"
+        android:inputType="textEmailAddress"
+        android:drawableStart="@drawable/ic_mail"
+        android:drawablePadding="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="108dp"
+        android:elevation="100dp"
+        android:shadowColor="@color/ed_shadow_color"
+        android:layout_marginTop="34dp"
+        app:layout_constraintTop_toBottomOf="@id/login_to_acc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <EditText
+        android:id="@+id/ed_password"
+        android:layout_width="325dp"
+        android:layout_height="57dp"
+        android:background="@drawable/ed_text_style"
+        android:hint="@string/password"
+        android:textSize="14sp"
+        android:inputType="textPassword"
+        android:fontFamily="@font/lato"
+        android:drawableStart="@drawable/ic_lock"
+        android:drawablePadding="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="108dp"
+        android:shadowColor="@color/ed_shadow_color"
+        android:elevation="100dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintTop_toBottomOf="@id/ed_email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/or_continue_with"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or_ncontinue_with"
+        android:textSize="20sp"
+        android:fontFamily="@font/yeonsung"
+        android:gravity="center_horizontal|top"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@id/ed_password"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_facebook"
+        android:layout_width="152dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="22dp"
+        android:text="@string/facebook"
+        android:textAllCaps="false"
+        android:paddingStart="22dp"
+        android:paddingEnd="29dp"
+        android:fontFamily="@font/lato"
+        android:textSize="14sp"
+        android:elevation="50dp"
+        android:shadowColor="@color/white_button_shadow"
+        android:background="@drawable/white_btn_style"
+        android:drawableStart="@drawable/facebook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/or_continue_with"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_google"
+        android:layout_width="152dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginStart="21dp"
+        android:background="@drawable/white_btn_style"
+        android:drawableStart="@drawable/google"
+        android:elevation="50dp"
+        android:fontFamily="@font/lato"
+        android:paddingStart="31dp"
+        android:paddingEnd="37dp"
+        android:shadowColor="@color/white_button_shadow"
+        android:text="@string/google"
+        android:textAllCaps="false"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_facebook"
+        app:layout_constraintTop_toBottomOf="@id/or_continue_with" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_login"
+        android:layout_width="157dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="76dp"
+        android:background="@drawable/green_btn"
+        android:fontFamily="@font/yeonsung"
+        android:paddingTop="16dp"
+        android:paddingBottom="15dp"
+        android:text="@string/login"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/or_continue_with" />
+
+    <TextView
+        android:id="@+id/dont_have_acc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/don_t_have_account"
+        android:textSize="11sp"
+        android:textColor="@color/end_green_color"
+        android:fontFamily="@font/lato"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/design_by_nneatroots"
+        android:textColor="@color/end_green_color"
+        android:fontFamily="@font/yeonsung"
+        android:textSize="16sp"
+        android:textStyle="normal"
+        android:lineSpacingExtra="3sp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+        
+</androidx.constraintlayout.widget.ConstraintLayout>

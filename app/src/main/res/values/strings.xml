@@ -22,4 +22,11 @@
     <string name="choose_your_location">Choose Your Location</string>
     <string name="location_activity_text">To provide you with the best dining experience, we need your permission to access your device\'s location. By enabling location services, we can offer personalized restaurant recommendations, accurate delivery estimates, and ensure a seamless food delivery experience.</string>
     <string name="choose_location">Choose Location</string>
+    <string name="choose_your_location_locationActivity">Choose Your Location</string>
+    <string name="selected_country">Are you sure that you want to continue with the selected country?</string>
+    <string name="btn_yes">Yes</string>
+    <string name="byn_cancel">Cancel</string>
+    <string name="explore_your_favorite_food">Explore Your Favorite Food</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

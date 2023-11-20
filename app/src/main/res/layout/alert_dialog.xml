@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="15dp"
+    android:elevation="2dp"
+    android:background="#E7F4FD">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_your_location_locationActivity"
+            android:textSize="28sp"
+            android:layout_margin="6dp"
+            android:textColor="@color/end_green_color"
+            android:fontFamily="@font/yeonsung"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:layout_margin="6dp"
+            android:text="@string/selected_country"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="16dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_yes"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_margin="16dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:elevation="2dp"
+                android:outlineAmbientShadowColor="@color/end_green_color"
+                android:outlineSpotShadowColor="@color/end_green_color"
+                android:fontFamily="@font/yeonsung"
+                android:text="@string/btn_yes"
+                android:background="@drawable/green_btn"
+                app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_margin="16dp"
+                android:elevation="2dp"
+                android:outlineAmbientShadowColor="@color/end_green_color"
+                android:outlineSpotShadowColor="@color/end_green_color"
+                android:text="@string/byn_cancel"
+                android:textSize="16sp"
+                android:fontFamily="@font/yeonsung"
+                android:textColor="@color/white"
+                android:background="@drawable/green_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+

@@ -2,42 +2,81 @@ package ru.aapodomatko.fooddelivery.adapters.homeFragmentAdapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import ru.aapodomatko.fooddelivery.R
 import ru.aapodomatko.fooddelivery.databinding.HomeFoodItemBinding
 import ru.aapodomatko.fooddelivery.models.PopularFoodModel
 
-class HomeFragmentAdapter(
-    val context: Context,
-    val list : ArrayList<PopularFoodModel>
-) : RecyclerView.Adapter<HomeFragmentAdapter.HomeFragmentViewHolder>() {
+class HomeFragmentAdapter : RecyclerView.Adapter<HomeFragmentAdapter.HomeFragmentViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): HomeFragmentAdapter.HomeFragmentViewHolder {
-        val binding = HomeFoodItemBinding.inflate(LayoutInflater.from(context), parent, false)
-        return HomeFragmentViewHolder(binding)
+        return HomeFragmentViewHolder(LayoutInflater.from(parent.context).inflate(
+            R.layout.home_food_item, parent, false
+        ))
     }
 
     override fun onBindViewHolder(
         holder: HomeFragmentAdapter.HomeFragmentViewHolder,
         position: Int
     ) {
-        val listModel = list[position]
+        val foodItem = differ.currentList[position]
+        holder.itemView.apply {
+            val foodItemName = findViewById<TextView>(R.id.home_food_name)
+            val foodItemPrice = findViewById<TextView>(R.id.home_food_price)
+            val foodItemImage = findViewById<ImageView>(R.id.home_food_image)
+            Glide.with(this).load(foodItem.foodImage).into(foodItemImage)
+            foodItemImage.clipToOutline = true
+            foodItemName.text = foodItem.foodName
+            foodItemPrice.text = foodItem.foodPrice
+        }
 
-        holder.foodName.text = listModel.getFoodName()
-        holder.foodPrice.text = listModel.getFoodPrice()
-        listModel.getFoodImage()?.let { holder.foodImage.setImageResource(it) }
+
+
     }
 
     override fun getItemCount(): Int {
-        return list.size
+        return differ.currentList.size
     }
 
-    class HomeFragmentViewHolder(binding: HomeFoodItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val foodImage = binding.homeFoodImage
-        val foodName = binding.homeFoodName
-        val foodPrice = binding.homeFoodPrice
+    private var onItemClickListener: ((PopularFoodModel) -> Unit)? = null
+
+    inner class HomeFragmentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        init {
+            itemView.setOnClickListener {
+                onItemClickListener?.invoke(differ.currentList[adapterPosition])
+            }
+        }
     }
+
+    fun setOnItemClickListener(listener: (PopularFoodModel) -> Unit){
+        onItemClickListener = listener
+    }
+
+    private val callback = object : DiffUtil.ItemCallback<PopularFoodModel>() {
+        override fun areItemsTheSame(
+            oldItem: PopularFoodModel,
+            newItem: PopularFoodModel
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: PopularFoodModel,
+            newItem: PopularFoodModel
+        ): Boolean {
+            return oldItem == newItem
+        }
+
+    }
+    val differ = AsyncListDiffer(this, callback)
 
 }

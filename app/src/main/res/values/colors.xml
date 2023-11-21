@@ -12,4 +12,5 @@
     <color name="ed_shadow_color">#5A6CEA12</color>
     <color name="white_button_color">#F4F4F4</color>
     <color name="white_button_shadow">#5A6CEA12</color>
+    <color name="home_recycler_view_background">#F4F6FD</color>
 </resources>

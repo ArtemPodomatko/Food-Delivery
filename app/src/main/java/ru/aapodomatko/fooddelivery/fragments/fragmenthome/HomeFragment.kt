@@ -7,15 +7,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.ImageView
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import ru.aapodomatko.fooddelivery.R
 import ru.aapodomatko.fooddelivery.adapters.homeFragmentAdapter.HomeFragmentAdapter
 import ru.aapodomatko.fooddelivery.adapters.imageSliderAdapter.ImageSliderAdapter
-import ru.aapodomatko.fooddelivery.models.PopularFoodModel
+import ru.aapodomatko.fooddelivery.models.FoodItemsModel
 import kotlin.math.abs
 
 
@@ -24,39 +29,22 @@ class HomeFragment : Fragment() {
     private lateinit var sliderAdapter: ImageSliderAdapter
     private lateinit var imageList: ArrayList<Int>
     private lateinit var handler: Handler
-
-    private lateinit var adapter: HomeFragmentAdapter
-    private lateinit var listPopularFood: ArrayList<PopularFoodModel>
+    private lateinit var foodAdapter: HomeFragmentAdapter
     private lateinit var homeRecyclerView: RecyclerView
+    private lateinit var mViewModel: HomeFragmentViewModel
+    private lateinit var imageView: ImageView
 
-    private val runnable = Runnable {
-        viewPager.currentItem = viewPager.currentItem + 1
-    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
         viewPager = view.findViewById(R.id.image_slider)
-        homeRecyclerView = view.findViewById(R.id.home_recycler_view)
+        mViewModel = ViewModelProvider(this,
+            HomeFragmentViewModel.HomeFragmentViewModelFactory(requireActivity().application)
+        )[HomeFragmentViewModel::class.java]
 
-
-
-        listPopularFood = ArrayList()
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_burger, "Sandwich", "$7"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_sandwich, "Momo", "$9"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_momo, "Burger", "$5"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_burger, "Sandwich", "$7"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_sandwich, "Momo", "$9"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_momo, "Burger", "$5"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_burger, "Sandwich", "$7"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_sandwich, "Momo", "$9"))
-        listPopularFood.add(PopularFoodModel(R.drawable.pop_menu_momo, "Burger", "$5"))
-
-        adapter = HomeFragmentAdapter(requireContext(), listPopularFood)
-        homeRecyclerView.layoutManager = LinearLayoutManager(activity)
-        homeRecyclerView.adapter = adapter
 
         return view
     }
@@ -65,6 +53,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         init()
         setTransformer()
+        addFoodItems()
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
@@ -72,6 +61,20 @@ class HomeFragment : Fragment() {
                 viewPager.postDelayed(runnable, 5000)
             }
         })
+        homeRecyclerView = view.findViewById(R.id.home_recycler_view)
+        foodAdapter = HomeFragmentAdapter()
+        foodAdapter.setOnItemClickListener {
+            showBottomSheet()
+        }
+
+        homeRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = foodAdapter
+        }
+        mViewModel.foodItemsLiveData.observe(viewLifecycleOwner) { foodItem ->
+            foodAdapter.differ.submitList(foodItem)
+        }
+
 
     }
 
@@ -118,5 +121,49 @@ class HomeFragment : Fragment() {
         viewPager.clipChildren = false
         viewPager.getChildAt(0).overScrollMode = RecyclerView.OVER_SCROLL_NEVER
     }
+
+    private val runnable = Runnable {
+        viewPager.currentItem = viewPager.currentItem + 1
+    }
+
+
+    private fun showBottomSheet() {
+        val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet, null)
+
+        val dialog = BottomSheetDialog(requireContext(), R.style.FullScreenBottomSheetDialogTheme)
+        dialog.setOnShowListener {
+            val bottomSheetDialog = it as BottomSheetDialog
+            val parentLayout = bottomSheetDialog.findViewById<View>(
+                com.google.android.material.R.id.design_bottom_sheet
+            )
+            parentLayout?.let { it ->
+                val behavior = BottomSheetBehavior.from(it)
+                setUpFullHeight(it)
+                behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            }
+        }
+
+
+        dialog.setContentView(bottomSheet)
+        dialog.setCancelable(true)
+        setUpFullHeight(bottomSheet)
+        dialog.show()
+
+    }
+
+    private fun setUpFullHeight(bottomSheet: View) {
+        val layoutParams = bottomSheet.layoutParams
+        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
+        bottomSheet.layoutParams = layoutParams
+    }
+
+    private fun addFoodItems() {
+        val listFoodItems = FoodItemsModel().createItems()
+        for (foodItem in listFoodItems) {
+            mViewModel.addFoodItem(foodItem)
+        }
+
+    }
+
 
 }

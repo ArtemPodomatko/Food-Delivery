@@ -33,4 +33,5 @@
     <string name="view_menu">View Menu</string>
     <string name="herbal_pancake">Herbal Pancake</string>
     <string name="add_to_cart">Add To Cart</string>
+    <string name="food_name">Food Name</string>
 </resources>

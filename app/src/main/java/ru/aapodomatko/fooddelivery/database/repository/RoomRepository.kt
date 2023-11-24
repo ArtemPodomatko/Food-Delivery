@@ -15,4 +15,12 @@ class RoomRepository(private val foodRoomDao: FoodRoomDao) {
     suspend fun createFoodItem(foodItem: PopularFoodModel) {
         foodRoomDao.addFoodItem(foodItem = foodItem)
     }
+
+    suspend fun getItemsCount() : Int {
+        return foodRoomDao.getCount()
+    }
+
+    suspend fun deleteFoodItem(foodItem: PopularFoodModel) {
+        foodRoomDao.deleteFoodItem(foodItem)
+    }
 }

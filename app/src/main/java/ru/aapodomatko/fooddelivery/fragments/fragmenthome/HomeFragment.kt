@@ -18,9 +18,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import ru.aapodomatko.fooddelivery.R
+import ru.aapodomatko.fooddelivery.adapters.bottomSheetAdapter.BottomSheetAdapter
 import ru.aapodomatko.fooddelivery.adapters.homeFragmentAdapter.HomeFragmentAdapter
 import ru.aapodomatko.fooddelivery.adapters.imageSliderAdapter.ImageSliderAdapter
 import ru.aapodomatko.fooddelivery.models.FoodItemsModel
+import ru.aapodomatko.fooddelivery.models.PopularFoodModel
 import kotlin.math.abs
 
 
@@ -32,7 +34,8 @@ class HomeFragment : Fragment() {
     private lateinit var foodAdapter: HomeFragmentAdapter
     private lateinit var homeRecyclerView: RecyclerView
     private lateinit var mViewModel: HomeFragmentViewModel
-    private lateinit var imageView: ImageView
+    private lateinit var bottomSheetAdapter: BottomSheetAdapter
+    private lateinit var bottomSheetRecyclerView: RecyclerView
 
 
     override fun onCreateView(
@@ -64,6 +67,7 @@ class HomeFragment : Fragment() {
         homeRecyclerView = view.findViewById(R.id.home_recycler_view)
         foodAdapter = HomeFragmentAdapter()
         foodAdapter.setOnItemClickListener {
+            mViewModel.selectedItem(it)
             showBottomSheet()
         }
 
@@ -71,8 +75,10 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = foodAdapter
         }
-        mViewModel.foodItemsLiveData.observe(viewLifecycleOwner) { foodItem ->
-            foodAdapter.differ.submitList(foodItem)
+
+        mViewModel.foodItemsLiveData.observe(viewLifecycleOwner) { foodItems ->
+            foodAdapter.differ.submitList(foodItems)
+
         }
 
 
@@ -129,7 +135,7 @@ class HomeFragment : Fragment() {
 
     private fun showBottomSheet() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet, null)
-
+        val foodItem = PopularFoodModel()
         val dialog = BottomSheetDialog(requireContext(), R.style.FullScreenBottomSheetDialogTheme)
         dialog.setOnShowListener {
             val bottomSheetDialog = it as BottomSheetDialog
@@ -148,6 +154,18 @@ class HomeFragment : Fragment() {
         dialog.setCancelable(true)
         setUpFullHeight(bottomSheet)
         dialog.show()
+
+        bottomSheetRecyclerView = bottomSheet.findViewById(R.id.bottom_sheet_recyclerView)
+        bottomSheetAdapter = BottomSheetAdapter(foodItem)
+        bottomSheetRecyclerView.apply {
+            adapter = bottomSheetAdapter
+            layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        mViewModel.selectedFoodItem.observe(viewLifecycleOwner)  {
+            bottomSheetAdapter.updateFoodItem(it)
+        }
+
 
     }
 

@@ -8,6 +8,7 @@ class FoodItemsModel {
             PopularFoodModel(foodName = "Burger", foodPrice = "$5", foodImage = R.drawable.pop_menu_momo),
             PopularFoodModel(foodName = "Sandwich", foodPrice = "$9", foodImage = R.drawable.pop_menu_burger),
             PopularFoodModel(foodName = "Momo", foodPrice = "$5", foodImage = R.drawable.pop_menu_sandwich)
+
         )
         return list
     }

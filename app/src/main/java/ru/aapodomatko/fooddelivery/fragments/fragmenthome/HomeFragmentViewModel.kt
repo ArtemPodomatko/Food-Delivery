@@ -9,30 +9,29 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import ru.aapodomatko.fooddelivery.MyApplication
 import ru.aapodomatko.fooddelivery.database.AppRoomDatabase
 import ru.aapodomatko.fooddelivery.database.repository.RoomRepository
 import ru.aapodomatko.fooddelivery.models.PopularFoodModel
-import ru.aapodomatko.fooddelivery.utils.REPOSITORY
+
 
 @Suppress("UNCHECKED_CAST")
 class HomeFragmentViewModel(application: Application) : AndroidViewModel(application) {
     val context = application
+    private val repository = (application as MyApplication).roomRepository
 
     val foodItemsLiveData: MutableLiveData<List<PopularFoodModel>> = MutableLiveData()
 
+    val selectedFoodItem: MutableLiveData<PopularFoodModel> = MutableLiveData()
     init {
-        initDatabase()
         getFoodItems()
         Log.d("MyLog", "init database")
     }
-    fun initDatabase() {
-        val dao = AppRoomDatabase.getInstance(context = context).getFoodRoomDao()
-        REPOSITORY = RoomRepository(dao)
-    }
+
 
     private fun getFoodItems() {
         viewModelScope.launch {
-            val foodItems = REPOSITORY.takeAllItems()
+            val foodItems = repository.takeAllItems()
             if (foodItems.isNotEmpty()) {
                 foodItemsLiveData.postValue(foodItems)
             } else {
@@ -43,9 +42,24 @@ class HomeFragmentViewModel(application: Application) : AndroidViewModel(applica
 
     fun addFoodItem(foodItem: PopularFoodModel) {
         viewModelScope.launch(Dispatchers.IO) {
-            REPOSITORY.createFoodItem(foodItem)
+            val count = repository.getItemsCount()
+            if (count < 6) repository.createFoodItem(foodItem)
+            else Log.d("MyLog", "Cannot add more then 3 items")
 
         }
+    }
+
+    fun deleteFoodItem(foodItem: PopularFoodModel) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val items = repository.takeAllItems()
+            items.forEach{
+                repository.deleteFoodItem(it)
+            }
+        }
+    }
+
+    fun selectedItem(foodItem: PopularFoodModel) {
+        selectedFoodItem.postValue(foodItem)
     }
 
 

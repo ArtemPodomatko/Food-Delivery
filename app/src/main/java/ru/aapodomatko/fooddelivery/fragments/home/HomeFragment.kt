@@ -1,4 +1,4 @@
-package ru.aapodomatko.fooddelivery.fragments.fragmenthome
+package ru.aapodomatko.fooddelivery.fragments.home
 
 import android.os.Bundle
 import android.os.Handler
@@ -8,8 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.ImageView
+import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.CompositePageTransformer
@@ -36,6 +37,7 @@ class HomeFragment : Fragment() {
     private lateinit var mViewModel: HomeFragmentViewModel
     private lateinit var bottomSheetAdapter: BottomSheetAdapter
     private lateinit var bottomSheetRecyclerView: RecyclerView
+    private lateinit var goMenu: TextView
 
 
     override fun onCreateView(
@@ -74,6 +76,11 @@ class HomeFragment : Fragment() {
         homeRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = foodAdapter
+        }
+
+        goMenu = view.findViewById(R.id.go_menu)
+        goMenu.setOnClickListener {
+            findNavController().navigate(R.id.action_home_to_menuFragment)
         }
 
         mViewModel.foodItemsLiveData.observe(viewLifecycleOwner) { foodItems ->
@@ -137,12 +144,12 @@ class HomeFragment : Fragment() {
         val bottomSheet = layoutInflater.inflate(R.layout.bottom_sheet, null)
         val foodItem = PopularFoodModel()
         val dialog = BottomSheetDialog(requireContext(), R.style.FullScreenBottomSheetDialogTheme)
-        dialog.setOnShowListener {
+        dialog.setOnShowListener { it ->
             val bottomSheetDialog = it as BottomSheetDialog
             val parentLayout = bottomSheetDialog.findViewById<View>(
                 com.google.android.material.R.id.design_bottom_sheet
             )
-            parentLayout?.let { it ->
+            parentLayout?.let {
                 val behavior = BottomSheetBehavior.from(it)
                 setUpFullHeight(it)
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED

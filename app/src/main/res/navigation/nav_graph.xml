@@ -7,16 +7,19 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="ru.aapodomatko.fooddelivery.fragments.fragmenthome.HomeFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_cartFragment"
             app:destination="@id/cart" />
+        <action
+            android:id="@+id/action_home_to_menuFragment"
+            app:destination="@id/menuFragment" />
     </fragment>
     <fragment
         android:id="@+id/cart"
-        android:name="ru.aapodomatko.fooddelivery.fragments.fragmentcart.CartFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.cart.CartFragment"
         android:label="fragment_cart"
         tools:layout="@layout/fragment_cart" >
         <action
@@ -25,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/search"
-        android:name="ru.aapodomatko.fooddelivery.fragments.fragmentsearh.SearchFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.searh.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -34,7 +37,7 @@
     </fragment>
     <fragment
         android:id="@+id/history"
-        android:name="ru.aapodomatko.fooddelivery.fragments.fragmenthistory.HistoryFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.history.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" >
         <action
@@ -43,7 +46,12 @@
     </fragment>
     <fragment
         android:id="@+id/user"
-        android:name="ru.aapodomatko.fooddelivery.fragments.fragmentprofile.ProfileFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="ru.aapodomatko.fooddelivery.fragments.menu.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" />
 </navigation>

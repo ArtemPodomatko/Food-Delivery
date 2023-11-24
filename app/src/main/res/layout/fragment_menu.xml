@@ -4,41 +4,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.searh.SearchFragment">
+    tools:context=".fragments.menu.MenuFragment">
 
-    <EditText
-        android:id="@+id/ed_search"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/ed_text_style"
-        android:hint="@string/what_do_you_want_to_order"
-        android:textSize="14sp"
-        android:fontFamily="@font/lato"
-        android:inputType="textEmailAddress"
-        android:drawableStart="@drawable/baseline_search_24"
-        android:drawablePadding="15dp"
-        android:paddingStart="22dp"
-        android:paddingEnd="56dp"
-        android:layout_marginHorizontal="21dp"
-        android:elevation="100dp"
-        android:shadowColor="@color/ed_shadow_color"
-        android:layout_marginTop="19dp"
-        app:layout_constraintTop_toTopOf="parent"
+    <ImageView
+        android:id="@+id/menu_icon_back"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_back"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
 
     <TextView
-        android:id="@+id/tv_menu_search"
+        android:id="@+id/tv_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/ed_search"
+        app:layout_constraintTop_toBottomOf="@id/menu_icon_back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/menu"
         android:textSize="24sp"
         android:fontFamily="@font/yeonsung"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="30dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/menu_recycler_view"
@@ -48,9 +38,10 @@
         android:background="@color/home_recycler_view_background"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_menu_search"
+        app:layout_constraintTop_toBottomOf="@id/tv_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

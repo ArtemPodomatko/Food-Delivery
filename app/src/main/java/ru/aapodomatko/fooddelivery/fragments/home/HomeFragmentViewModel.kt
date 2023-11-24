@@ -1,4 +1,4 @@
-package ru.aapodomatko.fooddelivery.fragments.fragmenthome
+package ru.aapodomatko.fooddelivery.fragments.home
 
 import android.app.Application
 import android.util.Log
@@ -10,8 +10,6 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.aapodomatko.fooddelivery.MyApplication
-import ru.aapodomatko.fooddelivery.database.AppRoomDatabase
-import ru.aapodomatko.fooddelivery.database.repository.RoomRepository
 import ru.aapodomatko.fooddelivery.models.PopularFoodModel
 
 

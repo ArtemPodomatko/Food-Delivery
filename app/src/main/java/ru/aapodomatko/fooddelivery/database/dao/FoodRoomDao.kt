@@ -1,6 +1,5 @@
 package ru.aapodomatko.fooddelivery.database.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -21,5 +20,8 @@ interface FoodRoomDao {
 
     @Delete
     fun deleteFoodItem(foodItem: PopularFoodModel)
+
+    @Query("SELECT * FROM popular_food WHERE foodName LIKE :query || '%'")
+    fun searchItems(query: String): List<PopularFoodModel>
 
 }

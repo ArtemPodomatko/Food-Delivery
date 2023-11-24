@@ -1,6 +1,5 @@
 package ru.aapodomatko.fooddelivery.database.repository
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.aapodomatko.fooddelivery.database.dao.FoodRoomDao
@@ -12,15 +11,19 @@ class RoomRepository(private val foodRoomDao: FoodRoomDao) {
     }
 
 
-    suspend fun createFoodItem(foodItem: PopularFoodModel) {
+    fun createFoodItem(foodItem: PopularFoodModel) {
         foodRoomDao.addFoodItem(foodItem = foodItem)
     }
 
-    suspend fun getItemsCount() : Int {
+    fun getItemsCount() : Int {
         return foodRoomDao.getCount()
     }
 
-    suspend fun deleteFoodItem(foodItem: PopularFoodModel) {
+    fun deleteFoodItem(foodItem: PopularFoodModel) {
         foodRoomDao.deleteFoodItem(foodItem)
+    }
+
+    fun searchItems(query: String): List<PopularFoodModel> {
+        return foodRoomDao.searchItems(query)
     }
 }
